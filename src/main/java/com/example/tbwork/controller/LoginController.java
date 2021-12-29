@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class LoginController {
@@ -21,7 +24,7 @@ public class LoginController {
     @CrossOrigin
     @PostMapping("/register")//注册
     @ResponseBody
-    public Object register(User user){
+    public Object register(@RequestBody User user){
         String account = user.getAccount();
         String password = user.getPassword();
         account= HtmlUtils.htmlEscape(account);//防止恶意注册的奇怪用户名
@@ -37,14 +40,20 @@ public class LoginController {
     @CrossOrigin
     @PostMapping("/login")//登录
     @ResponseBody
-    public Object login(@RequestBody User userParam, HttpSession session){
+    public Object login( User userParam, HttpSession session){
         String account=HtmlUtils.htmlEscape(userParam.getAccount());//防止恶意注册
         String password=userParam.getPassword();
         String token= TokenUtil.sign(userParam);
         Master master=masterService.get(account,password);
         User user=userService.get(account,password);
-        if(null!=master){return new Result(200,"admin",token);}
-        if(null!=user){ return new Result(200,"user",token); }
+        Map<String,Object> list=new HashMap<String,Object>();
+        list.put("token",token);
+        list.put("user",user);
+        Map<String,Object> listm=new HashMap<String,Object>();
+        listm.put("token",token);
+        listm.put("master",master);
+        if(null!=master){return new Result(200,"admin",listm);}
+        if(null!=user){ return new Result(200,"user",list); }
         return new Result(400,"账号或密码错误",null);//账号密码错
 
 

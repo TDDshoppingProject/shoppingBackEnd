@@ -13,7 +13,7 @@ public class Goods {
     @Column(name = "id")
     int id;
     private String name;
-    private int price;
+    private float price;
     private String introduce="未知";
     private String img="未知";
     @ManyToOne
@@ -36,11 +36,11 @@ public class Goods {
         this.name = name;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

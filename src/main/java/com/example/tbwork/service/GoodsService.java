@@ -2,6 +2,7 @@ package com.example.tbwork.service;
 
 import com.example.tbwork.dao.GoodsDao;
 import com.example.tbwork.pojo.Goods;
+import com.example.tbwork.pojo.Review;
 import com.example.tbwork.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -15,6 +16,7 @@ import java.util.Map;
 @Service
 public class GoodsService {
     @Autowired GoodsDao goodsDao;
+    @Autowired ReviewService reviewService;
     public List<Map> list(){
         Sort sort=Sort.by(Sort.Direction.ASC,"id");
         List<Goods> goodsList=goodsDao.findAll(sort);
@@ -25,7 +27,8 @@ public class GoodsService {
         goodsDao.deleteByName(name);
     }
     public List<Map> listByName(String name){
-        List<Goods> goodsList=goodsDao.findAllByName(name);
+        name = '%' + name + '%';
+        List<Goods> goodsList=goodsDao.findAllByNameLike(name);
         List<Map> result=getGoods(goodsList);
         return result;
     }
@@ -43,5 +46,17 @@ public class GoodsService {
             result.add(list);
         }
         return result;
+    }
+    public Map<String,Object> getGood(int id){
+        Goods goods=goodsDao.findById(id);
+        List<Review>reviews=reviewService.reviewList(goods);
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("goods",goods);
+        List<String> list=new ArrayList<String>();
+        for(Review review:reviews){
+            list.add(review.getText());
+        }
+        map.put("review",list);
+        return map;
     }
 }

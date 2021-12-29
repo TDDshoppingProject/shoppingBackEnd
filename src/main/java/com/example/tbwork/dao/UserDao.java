@@ -10,6 +10,7 @@ import java.util.Map;
 
 public interface UserDao extends JpaRepository<User,Integer> {
     User findByAccount(String account);
+    User findById(int id);
     User getByAccountAndPassword(String account,String password);
     List<User> findAllByBusiness(int business);
     List<User> findAllByAccountAndBusiness(String account,int business);

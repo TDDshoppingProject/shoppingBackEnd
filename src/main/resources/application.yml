@@ -1,11 +1,12 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/tbwork?characterEncoding=UTF-8
-    username: root
-    password: inm114514
+    url: jdbc:mysql://39.105.198.68:3306/tdd?characterEncoding=UTF-8
+    username: tdd
+    password: qwer1234.
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: none
+    open-in-view: true
 server:
-  port: 8082
+  port: 8085

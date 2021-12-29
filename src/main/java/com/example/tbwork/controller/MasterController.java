@@ -41,6 +41,7 @@ public class MasterController {
     @PostMapping("/admin/businesslist")
     public Result businessList(@RequestBody String account){
         account=account.substring(1,account.length()-1);
+        System.out.println(account);
         if(account.length()!=0){
             return new Result<List>(200,"查询成功",userService.listBusinessByAccount(account,1));
         }
@@ -55,7 +56,7 @@ public class MasterController {
         shopService.deleteShop(shop);
         return new Result<List>(200,"删除成功",null);
     }
-    @PostMapping("/admin/goodslist")
+    @PostMapping("/goodslist")
     public Result goodsList(@RequestBody String name){
         name=name.substring(1,name.length()-1);
         if(name.length()!=0){
