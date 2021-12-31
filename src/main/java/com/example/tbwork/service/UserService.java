@@ -1,10 +1,14 @@
 package com.example.tbwork.service;
 
+import com.example.tbwork.dao.ShopDao;
 import com.example.tbwork.dao.UserDao;
+import com.example.tbwork.pojo.Shop;
 import com.example.tbwork.pojo.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +19,8 @@ import java.util.Map;
 public class UserService {
     @Autowired UserDao userDao;
     @Autowired ShopService shopService;
+    @Autowired
+    ShopDao shopDao;
     public boolean isExist(String account){
         User user=getByAccount(account);
         return null!=user;
@@ -68,6 +74,41 @@ public class UserService {
             result.add(list);
         }
         return result;
+    }
+    public Shop becomeBusiness(int uid, String businame){
+        User user=userDao.findById(uid);
+        if(user.getBusiness()==0){
+            user.setBusiness(1);
+            userDao.save(user);
+            Shop shop=new Shop();
+            shop.setName(businame);
+            shop.setUser(user);
+            shopDao.save(shop);
+            return shop;
+        }
+        return null;
+    }
+    public User setInfor(int uid,String name,char sex,int age,String mobile,String email,String address,String password){
+        User user=userDao.findById(uid);
+        user.setPassword(password);
+        user.setAddress(address);
+        user.setEmail(email);
+        user.setMobile(mobile);
+        user.setAge(age);
+        user.setSex(sex);
+        user.setName(name);
+        userDao.save(user);
+        return user;
+    }
+    public User getInfor(int uid){
+        return userDao.findById(uid);
+    }
+    public Shop cancelBusiness(int uid){
+        User user=userDao.findById(uid);
+        user.setBusiness(0);
+        Shop shop=shopDao.findByUser(user);
+        shopDao.delete(shop);
+        return shop;
     }
 }
 

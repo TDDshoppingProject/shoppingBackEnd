@@ -1,7 +1,6 @@
 package com.example.tbwork.controller;
 
 import com.example.tbwork.Result;
-import com.example.tbwork.pojo.Goods;
 import com.example.tbwork.pojo.Shop;
 import com.example.tbwork.pojo.User;
 import com.example.tbwork.service.GoodsService;

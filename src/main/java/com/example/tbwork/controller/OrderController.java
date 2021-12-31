@@ -14,7 +14,6 @@ public class OrderController {
     OrderService orderService;
     @Autowired
     OrderDao orderDao;
-    @ResponseBody
     @PostMapping("/createorder/{number}/{gid}/{uid}")
     public Result createOrder(@PathVariable("number") int number,@PathVariable("gid")int gid,@PathVariable("uid") int uid){
         Order order=orderService.createOrder(number,gid,uid);

@@ -23,7 +23,6 @@ public class LoginController {
     MasterService masterService;
     @CrossOrigin
     @PostMapping("/register")//注册
-    @ResponseBody
     public Object register(@RequestBody User user){
         String account = user.getAccount();
         String password = user.getPassword();
@@ -39,8 +38,7 @@ public class LoginController {
     }
     @CrossOrigin
     @PostMapping("/login")//登录
-    @ResponseBody
-    public Object login( User userParam, HttpSession session){
+    public Object login(@RequestBody User userParam, HttpSession session){
         String account=HtmlUtils.htmlEscape(userParam.getAccount());//防止恶意注册
         String password=userParam.getPassword();
         String token= TokenUtil.sign(userParam);

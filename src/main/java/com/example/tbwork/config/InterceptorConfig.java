@@ -7,6 +7,7 @@ import com.example.tbwork.handler.UserHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import java.util.ArrayList;
@@ -32,6 +33,11 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         registry.addInterceptor(masterHandler).addPathPatterns("/admin/**");
         registry.addInterceptor(userHandler).addPathPatterns("/**").excludePathPatterns(excludePath);
         registry.addInterceptor(businessHandler).addPathPatterns("/business/**");
-        registry.addInterceptor(idHandler).addPathPatterns("/business/{id}/**").addPathPatterns("/{id}/orderlist");
+        registry.addInterceptor(idHandler).addPathPatterns("/business/{id}/orderlist").addPathPatterns("/{id}/orderlist");
     }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/img/**").addResourceLocations("file:" + "C:/img/");
+    }
+
 }

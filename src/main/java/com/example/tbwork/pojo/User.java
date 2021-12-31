@@ -17,7 +17,6 @@ public class User {
     private String password;
     private String email="未知";
     private int business=0;
-    private String img="未知";
     private char sex='?';
     private int age=-1;
     private String address="未知";
@@ -69,14 +68,6 @@ public class User {
 
     public void setBusiness(int business) {
         this.business = business;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
     }
 
     public char getSex() {

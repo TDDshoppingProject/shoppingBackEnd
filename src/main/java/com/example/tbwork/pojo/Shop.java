@@ -6,14 +6,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="shop")
+@JsonIgnoreProperties({ "handler","hibernateLazyInitializer" })
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnoreProperties({ "handler","hibernateLazyInitializer" })
     @Column(name = "id")
     int id;
     private String name;
-    private String img="未知";
 
     @OneToOne
     @JoinColumn(name = "uid")
@@ -33,14 +32,6 @@ public class Shop {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
     }
 
     public User getUser() {

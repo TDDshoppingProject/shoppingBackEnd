@@ -14,7 +14,6 @@ public class Goods {
     int id;
     private String name;
     private float price;
-    private String introduce="未知";
     private String img="未知";
     @ManyToOne
     @JoinColumn(name="sid")
@@ -42,14 +41,6 @@ public class Goods {
 
     public void setPrice(float price) {
         this.price = price;
-    }
-
-    public String getIntroduce() {
-        return introduce;
-    }
-
-    public void setIntroduce(String introduce) {
-        this.introduce = introduce;
     }
 
     public String getImg() {

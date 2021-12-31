@@ -2,7 +2,6 @@ package com.example.tbwork.handler;
 
 import com.example.tbwork.dao.UserDao;
 import com.example.tbwork.pojo.User;
-import com.example.tbwork.service.UserService;
 import com.example.tbwork.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
